@@ -13,5 +13,6 @@ const signUpSchema = z.object({
 });
 
 const ProfileIdSchema = z.string().uuid();
+const ProfileEmailSchema = z.string().max(35).min(8);
 
-export { signInSchema, signUpSchema, ProfileIdSchema };
+export { signInSchema, signUpSchema, ProfileIdSchema, ProfileEmailSchema };

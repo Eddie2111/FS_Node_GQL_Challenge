@@ -1,0 +1,74 @@
+# Graphql Queries & Mutation List
+
+Address: http://localhost:4000/graphql
+
+# Users
+
+## Hello
+
+```json
+{
+  Hello
+}
+```
+
+## Sign In
+
+```json
+mutationSignIn($email: String!,$password: String!){
+  signIn(email: $email,password: $password)
+}
+```
+
+## Signup
+
+```json
+mutation SignUp($name: String! $email: String!,$password: String! ){
+  signUp(name: $name, email: $email, password: $password)
+  { name, email, id}
+}
+```
+
+## Remove a user
+
+```json
+mutationCreateUser($email: String!){
+    removeUser(email: $email)
+}
+```
+
+# Products
+
+## Create a product
+
+```json
+mutation CreateProduct($name: String!, $description: String!, $price: String!) {
+    createProduct(name: $name, description: $description, price: $price)
+    { id name description price }
+}
+```
+
+Payload example:
+
+```json
+{
+  "name": "Product Name",
+  "description": "Product Description",
+  "price": 100,
+  "category": "ELECTRONICS",
+  "userId": 6
+}
+```
+
+## Update a product
+
+```json
+mutation CreateProduct($id: String!, $name: String!, $description: String!, $price: String!) {
+    updateProduct(id: $id, name: $name, description: $description, price: $price)
+    { id name description price }
+}
+```
+
+Payload example:
+
+same as createProduct
