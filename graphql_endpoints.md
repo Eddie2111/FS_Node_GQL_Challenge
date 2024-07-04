@@ -42,9 +42,9 @@ mutationCreateUser($email: String!){
 ## Create a product
 
 ```json
-mutation CreateProduct($name: String!, $description: String!, $price: String!) {
-    createProduct(name: $name, description: $description, price: $price)
-    { id name description price }
+mutation CreateProduct($name: String!, $description: String!, $price: Int!, $category: Categories!, $user_id: Int!) {
+    createProduct(name: $name, description: $description, price: $price, category: $category, user_id: $user_id)
+    { id name description price category user_id }
 }
 ```
 

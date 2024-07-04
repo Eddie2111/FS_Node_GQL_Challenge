@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const tslib_1 = require("tslib");
 const apollo_server_express_1 = require("apollo-server-express");
+const cors_1 = tslib_1.__importDefault(require("cors"));
 const express_1 = tslib_1.__importDefault(require("express"));
 const types_1 = require("./graphql/types");
 const resolvers_1 = require("./resolvers");
@@ -10,6 +11,7 @@ function startServer() {
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
         yield server.start();
         const app = (0, express_1.default)();
+        app.use((0, cors_1.default)({ origin: 'http://localhost:5173' }));
         server.applyMiddleware({ app });
         app.listen({ port: 4000 }, () => console.log(`Server ready at http://localhost:4000${server.graphqlPath}`));
     });
