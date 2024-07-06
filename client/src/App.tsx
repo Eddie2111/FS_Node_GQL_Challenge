@@ -5,8 +5,6 @@ import { useQuery, gql } from "@apollo/client";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
-import "./App.css";
-
 function App() {
   const [count, setCount] = useState(0);
   const GET_LOCATIONS = gql`

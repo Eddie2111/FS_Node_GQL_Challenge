@@ -72,3 +72,29 @@ mutation CreateProduct($id: String!, $name: String!, $description: String!, $pri
 Payload example:
 
 same as createProduct
+
+## Get one product
+
+````json
+query GetOneProduct($id: String!){
+    readOneProduct(id: $id) {name description id price user_id}
+}
+```json
+
+Payload example {
+  "id": 1
+}
+
+````
+
+## Get all products
+
+```json
+query GetAllProducts($page: Int!){
+    readAllProducts(page: $page) {name description id price user_id}
+}
+```
+
+Payload example {
+"page": 1
+}
