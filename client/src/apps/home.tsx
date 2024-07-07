@@ -9,6 +9,7 @@ import {
   Group,
 } from "@mantine/core";
 import React from "react";
+import { useEffect } from 'react';
 import { Link as NavLink } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
@@ -24,13 +25,17 @@ interface ProductProps {
 
 const Home = () => {
   const [page, setPage] = React.useState(1);
-  const { loading, error, data } = useQuery(getProductsByPage, {
+  const { loading, error, data, refetch } = useQuery(getProductsByPage, {
     variables: { page: page },
   });
+  
+  useEffect(() => {
+    refetch({ page });
+  }, [page, refetch]);
 
   if (loading) return <Loader variant="dots" size="xl" />;
   if (error) return <Alert color="red">Error: {error.message}</Alert>;
-
+  if(data){
   return (
     <Container size="xl" padding="md">
       <div>
@@ -65,6 +70,7 @@ const Home = () => {
       </Group>
     </Container>
   );
+}
 };
 
 export default Home;

@@ -74,5 +74,34 @@ const updateProductByID =  gql`
         }
       }
     `;
-
-export { createOneProduct, getProductsByPage, getOneProductByID, updateProductByID };
+const create_product = gql`
+  mutation CreateProduct(
+    $name: String!
+    $description: String!
+    $price: Int!
+    $category: Categories!
+    $user_id: Int!
+  ) {
+    createProduct(
+      name: $name
+      description: $description
+      price: $price
+      category: $category
+      user_id: $user_id
+    ) {
+      id
+      name
+      description
+      price
+      category
+      user_id
+    }
+  }
+`;
+export {
+  createOneProduct,
+  getProductsByPage,
+  getOneProductByID,
+  updateProductByID,
+  create_product,
+};

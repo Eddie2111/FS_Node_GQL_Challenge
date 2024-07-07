@@ -63,9 +63,9 @@ Payload example:
 ## Update a product
 
 ```json
-mutation CreateProduct($id: String!, $name: String!, $description: String!, $price: String!) {
-    updateProduct(id: $id, name: $name, description: $description, price: $price)
-    { id name description price }
+mutation CreateProduct($id: String!, $name: String!, $description: String!, $price: String!, category: String!, status: String!) {
+    updateProduct(id: $id, name: $name, description: $description, price: $price, category: $category, status: $status)
+    { id name description price category status}
 }
 ```
 

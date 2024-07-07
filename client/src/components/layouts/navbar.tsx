@@ -29,6 +29,7 @@ import {
 import { MantineLogo } from "@mantinex/mantine-logo";
 import { useDisclosure } from "@mantine/hooks";
 
+import { useAuth } from '../../contexts/AuthContext';
 import classes from "../modules/HeaderMegaMenu.module.css";
 
 const mockdata = [
@@ -65,6 +66,7 @@ const mockdata = [
 ];
 
 export function HeaderMegaMenu() {
+  const { isAuthenticated } = useAuth();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
   const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -97,7 +99,7 @@ export function HeaderMegaMenu() {
           <MantineLogo size={30} />
 
           <Group h="100%" gap={0} visibleFrom="sm">
-            <a href="#" className={classes.link}>
+            <a href="/" className={classes.link}>
               Home
             </a>
             <HoverCard
@@ -108,10 +110,10 @@ export function HeaderMegaMenu() {
               withinPortal
             >
               <HoverCard.Target>
-                <a href="#" className={classes.link}>
+                <a href="/home" className={classes.link}>
                   <Center inline>
-                    <Box component="span" mr={5}>
-                      Features
+                    <Box component="span" mr={5} style={{ marginLeft: "4px" }}>
+                      Products
                     </Box>
                     <IconChevronDown
                       style={{ width: rem(16), height: rem(16) }}
@@ -150,21 +152,34 @@ export function HeaderMegaMenu() {
                 </div>
               </HoverCard.Dropdown>
             </HoverCard>
-            <a href="#" className={classes.link}>
-              Learn
+            <a href="/profile" className={classes.link}>
+              Profile
             </a>
-            <a href="#" className={classes.link}>
-              Academy
+            <a href="/analytics" className={classes.link}>
+              Analytics
             </a>
           </Group>
 
           <Group visibleFrom="sm">
-            <a href="/signin">
-            <Button variant="default">Log in</Button>
-            </a>
-            <a href="/signin">
-            <Button>Sign up</Button>
-            </a>
+            {isAuthenticated ? (
+              <>
+                <a href="/addProduct">
+                  <Button variant="default">Add Product</Button>
+                </a>
+                <a href="/logout">
+                  <Button>Log Out</Button>
+                </a>
+              </>
+            ) : (
+              <>
+                <a href="/signin">
+                  <Button variant="default">Log in</Button>
+                </a>
+                <a href="/signin">
+                  <Button>Sign up</Button>
+                </a>
+              </>
+            )}
           </Group>
 
           <Burger
@@ -212,12 +227,25 @@ export function HeaderMegaMenu() {
           <Divider my="sm" />
 
           <Group justify="center" grow pb="xl" px="md">
-            <a href="/signin">
-              <Button variant="default">Log in</Button>
-            </a>
-            <a href="/signin">
-              <Button>Sign up</Button>
-            </a>
+            {isAuthenticated ? (
+              <>
+                <a href="/addProduct">
+                  <Button variant="default">Add Product</Button>
+                </a>
+                <a href="/logout">
+                  <Button>Log Out</Button>
+                </a>
+              </>
+            ) : (
+              <>
+                <a href="/signin">
+                  <Button variant="default">Log in</Button>
+                </a>
+                <a href="/signin">
+                  <Button>Sign up</Button>
+                </a>
+              </>
+            )}
           </Group>
         </ScrollArea>
       </Drawer>

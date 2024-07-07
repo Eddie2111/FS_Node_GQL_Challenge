@@ -10,6 +10,9 @@ exports.queryTypeDefs = (0, apollo_server_express_1.gql) `
     deleteProduct(id: String!): String
     readOneProduct(id: String!): Product
     readAllProducts(page: Int!): [Product]
+    getUserCount: Int
+    getProductCount: Int
+    getUsersByPage(page: Int!): [User]
   }
 `;
 //# sourceMappingURL=query.js.map

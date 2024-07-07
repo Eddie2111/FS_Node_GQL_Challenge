@@ -3,3 +3,5 @@
 2. create a simple http server using apollo graphql with express, do keep a query and a mutation in it, show two endpoints for a query and a mutation.
 3. redesign all the html tags using mantine ui
 4. testing graphql using postman
+5. state management using apollo graphql cache vs useContext
+6. NGL I faced a weird challenge in rearragning the root of the frontend lol

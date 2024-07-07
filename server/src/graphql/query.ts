@@ -8,5 +8,8 @@ export const queryTypeDefs = gql`
     deleteProduct(id: String!): String
     readOneProduct(id: String!): Product
     readAllProducts(page: Int!): [Product]
+    getUserCount: Int
+    getProductCount: Int
+    getUsersByPage(page: Int!): [User]
   }
 `;

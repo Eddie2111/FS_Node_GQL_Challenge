@@ -13,6 +13,8 @@ import {
   RemoveUser,
   getUserID
 } from '../controllers/users';
+import { getProductCount } from "../controllers/analytics/products";
+import { getUserCount, getUsersByPage } from '../controllers/analytics/users';
 import hello from '../controllers/hello';
 
 export const resolvers = {
@@ -26,6 +28,10 @@ export const resolvers = {
     deleteProduct: DeleteProduct,
     readOneProduct: ReadOneProduct,
     readAllProducts: ReadAllProducts,
+    // analytics
+    getUserCount: getUserCount,
+    getUsersByPage: getUsersByPage,
+    getProductCount: getProductCount,
   },
   Mutation: {
     // user controls

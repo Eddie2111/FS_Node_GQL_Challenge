@@ -3,7 +3,7 @@ import {
   Group, PaperProps, Button, Divider,
   Anchor, Stack
 } from "@mantine/core";
-import { useApolloClient, useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useToggle, upperFirst } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 
@@ -12,32 +12,12 @@ import { loginSchema, registerSchema } from "../utils/validation/user";
 import { useAuth } from "../contexts/AuthContext";
 
 export function AuthenticationForm(props: PaperProps) {
-  const client = useApolloClient();
-  const { login, userLogin, userData } = useAuth();
+  const { login, userLogin } = useAuth();
   const [type, toggle] = useToggle(["login", "register"]);
   const [
     SignIn,
-    { data: signin_data, loading: signin_loading, error: signin_error },
-  ] = useMutation(signIn, {
-    onCompleted: (data) => {
-      if (data.signIn) {
-        client.writeQuery({
-          query: gql`
-            query GetUser {
-              user {
-                id
-                name
-                email
-              }
-            }
-          `,
-          data: {
-            user: data.signIn,
-          },
-        });
-      }
-    },
-  });
+    { loading: signin_loading, error: signin_error },
+  ] = useMutation(signIn);
   const [
     SignUp,
     { data: signup_data, loading: signup_loading, error: signup_error },
@@ -65,14 +45,13 @@ export function AuthenticationForm(props: PaperProps) {
       const data = await schema.parseAsync(form.values);
 
       if (type === "login") {
-        await SignIn({
+        const response = await SignIn({
           variables: { email: data.email, password: data.password },
         });
-        if(signin_data) {
-          userLogin(signin_data);
+        if (response?.data?.signIn?.email && response?.data?.signIn?.id) {
+          userLogin(response?.data?.signIn);
           login();
         }
-        console.log(signin_data, userData);
       } else {
         await SignUp({
           variables: {
