@@ -2,59 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.typeDefs = void 0;
 const apollo_server_express_1 = require("apollo-server-express");
-exports.typeDefs = (0, apollo_server_express_1.gql) `
-  enum Categories {
-    ELECTRONICS
-    FURNITURE
-    HOME_APPLIANCES
-    SPORTING_GOODS
-    OUTDOOR
-    TOYS
-  }
-  type Query {
-    hello: String
-    logout(id: String!): String
-    deleteProduct(id: String!): String
-    readOneProduct(id: String!): Product
-    readAllProducts(page: Int!): [Product]
-  }
-
-  type Mutation {
-    signIn(email: String!, password: String!): User
-    signUp(email: String!, name: String!, password: String!): User
-    removeUser(email: String!): String
-    createProduct(
-      name: String!
-      description: String!
-      price: Int!
-      category: Categories!
-      user_id: Int!
-    ): Product
-    updateProduct(
-      serial: Int!
-      name: String!
-      description: String!
-      price: Int!
-      category: Categories!
-    ): Product
-  }
-
-  type Product {
-    serial: Int
-    id: String
-    name: String
-    description: String
-    price: Int
-    category: Categories
-    user_id: Int
-    createdAt: String
-    updatedAt: String
-  }
-  type User {
-    id: String
-    email: String
-    name: String
-    password: String
-  }
+const products_1 = require("./types/products");
+const user_1 = require("./types/user");
+const enums_1 = require("./enums");
+const mutation_1 = require("./mutation");
+const query_1 = require("./query");
+const baseTypeDefs = (0, apollo_server_express_1.gql) `
+  type Query
+  type Mutation
 `;
+exports.typeDefs = [
+    baseTypeDefs,
+    enums_1.enumDefs,
+    user_1.userTypeDefs,
+    products_1.productTypeDefs,
+    query_1.queryTypeDefs,
+    mutation_1.mutationTypeDefs,
+];
 //# sourceMappingURL=types.js.map

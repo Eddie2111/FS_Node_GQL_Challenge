@@ -26,15 +26,20 @@ const createOneProduct = gql`
     `;
 
 const getProductsByPage = gql`
-      query GetAllProduct($page: Int!) {
-        readAllProducts(page: $page) {
-          name
-          description
-          id
-          price
-        }
-      }
-    `;
+  query GetAllProduct($page: Int!) {
+    readAllProducts(page: $page) {
+      name
+      description
+      id
+      price
+      created_at
+      updated_at
+      user_id
+      category
+      status
+    }
+  }
+`;
 
 
 const getOneProductByID = gql`

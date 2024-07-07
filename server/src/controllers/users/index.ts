@@ -15,6 +15,23 @@ const logOut = async (_: any, { id }: { id: string }): Promise<string> => {
   return `User with id ${data} has been logged out`;
 };
 
+const getUserID = async (
+  _: any,
+  { id }: { id: number }
+): Promise<Partial<UserProps | null>> => {
+  const userID = ProfileIdSchema.parse(id);
+  return await prisma.user.findFirst({
+    where: {
+      id: id,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+    },
+  });
+};
+
 const signIn = async (
   _: any,
   { email, password }: { email: string; password: string }
@@ -58,4 +75,4 @@ const RemoveUser = async (_: any, { email }: { email: string }): Promise<string>
   return `User with email ${data} has been removed`;
 };
 
-export { logOut, signIn, signUp, RemoveUser };
+export { logOut, signIn, signUp, RemoveUser, getUserID };

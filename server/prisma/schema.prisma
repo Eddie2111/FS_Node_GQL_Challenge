@@ -15,6 +15,11 @@ enum Categories {
   OUTDOOR
   TOYS
 }
+enum ProductStatus {
+  INTACT
+  BOUGHT
+  RENTED
+}
 
 model User {
   id       Int        @id @default(autoincrement())
@@ -30,6 +35,7 @@ model Products {
   name        String     @db.VarChar(16)
   price       Int        @db.Integer()
   description String     @db.VarChar(512)
+  status      ProductStatus @default(INTACT)
   category    Categories
   user_id     Int
   user        User       @relation(fields: [user_id], references: [id])

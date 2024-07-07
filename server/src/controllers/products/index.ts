@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { Categories } from '@prisma/client';
+import { Categories, ProductStatus } from '@prisma/client';
 import type { Products } from '@prisma/client';
 
 import prisma from '../../lib/db';
@@ -30,10 +30,11 @@ const ReadAllProducts = async (
   _: any,
   { page }: { page: number }
 ): Promise<Partial<Products[] | null>> => {
-  return await prisma.products.findMany({
+  const products = await prisma.products.findMany({
     skip: (page - 1) * 10,
     take: 10,
   });
+  return products;
 };
 
 const CreateProduct = async (
@@ -66,9 +67,36 @@ const CreateProduct = async (
 
 const UpdateProduct = async (
   _: any,
-  { id, name, description, price }: { id: string; name: string; description: string; price: number }
+  {
+    id,
+    name,
+    description,
+    price,
+    category,
+    status,
+  }: {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    category: Categories;
+    status: ProductStatus;
+  }
 ): Promise<Partial<Products | null>> => {
-  return { id, name, description, price };
+  return await prisma.products.update({
+    where: { id },
+    data: { name, description, price, category, status },
+  })
 };
 
-export { CreateProduct, DeleteProduct, ReadAllProducts, ReadOneProduct, UpdateProduct };
+const ChangeStatus = async (
+  _: any,
+  { id, status }: { id: string; status: ProductStatus }
+): Promise<Partial<Products | null>> => {
+  return await prisma.products.update({
+    where: { id },
+    data: { status },
+  })
+};
+
+export { CreateProduct, DeleteProduct, ReadAllProducts, ReadOneProduct, UpdateProduct, ChangeStatus };

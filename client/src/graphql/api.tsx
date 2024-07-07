@@ -8,7 +8,7 @@ const cache = new InMemoryCache();
 const setupCachePersistence = async () => {
   await persistCache({
     cache,
-    storage: window.localStorage,
+    storage: window.localStorage as any,
   });
 };
 

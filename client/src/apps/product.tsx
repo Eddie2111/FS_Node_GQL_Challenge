@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 
 import { useQuery } from '@apollo/client';
@@ -14,9 +13,17 @@ export default function Product() {
       },
     });
     console.log(id,data, searchParams.get("id"));
+    if(loading){
+      return <div>Loading</div>
+    }
+    if(error){
+      return <div>Error</div>
+    }
+    if(data) {
     return (
         <div>
         </div>
     )
+  }
 
 }

@@ -13,7 +13,7 @@ const signUpSchema = zod_1.z.object({
     password: zod_1.z.string().min(6),
 });
 exports.signUpSchema = signUpSchema;
-const ProfileIdSchema = zod_1.z.string().uuid();
+const ProfileIdSchema = zod_1.z.number().int();
 exports.ProfileIdSchema = ProfileIdSchema;
 const ProfileEmailSchema = zod_1.z.string().max(35).min(8);
 exports.ProfileEmailSchema = ProfileEmailSchema;

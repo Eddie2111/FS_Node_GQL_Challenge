@@ -98,3 +98,17 @@ query GetAllProducts($page: Int!){
 Payload example {
 "page": 1
 }
+
+## Change status of a product
+
+```json
+mutation changeStatus($id: String!, $status: String!){
+    changeStatus(id:$id, status: $status) 
+    {id name updated_at category status}
+}
+```
+
+Payload example {
+  "id":"a9d317da-1b38-4c11-b3ca-43026e71d7ee",
+  "status":"BOUGHT"
+}

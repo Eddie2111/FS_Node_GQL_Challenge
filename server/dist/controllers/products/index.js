@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateProduct = exports.ReadOneProduct = exports.ReadAllProducts = exports.DeleteProduct = exports.CreateProduct = void 0;
+exports.ChangeStatus = exports.UpdateProduct = exports.ReadOneProduct = exports.ReadAllProducts = exports.DeleteProduct = exports.CreateProduct = void 0;
 const tslib_1 = require("tslib");
 const uuid_1 = require("uuid");
 const db_1 = tslib_1.__importDefault(require("../../lib/db"));
@@ -23,10 +23,11 @@ const ReadOneProduct = (_2, _b) => tslib_1.__awaiter(void 0, [_2, _b], void 0, f
 });
 exports.ReadOneProduct = ReadOneProduct;
 const ReadAllProducts = (_3, _c) => tslib_1.__awaiter(void 0, [_3, _c], void 0, function* (_, { page }) {
-    return yield db_1.default.products.findMany({
+    const products = yield db_1.default.products.findMany({
         skip: (page - 1) * 10,
         take: 10,
     });
+    return products;
 });
 exports.ReadAllProducts = ReadAllProducts;
 const CreateProduct = (_4, _d) => tslib_1.__awaiter(void 0, [_4, _d], void 0, function* (_, { name, description, price, category, user_id, }) {
@@ -49,8 +50,18 @@ const CreateProduct = (_4, _d) => tslib_1.__awaiter(void 0, [_4, _d], void 0, fu
     }
 });
 exports.CreateProduct = CreateProduct;
-const UpdateProduct = (_5, _e) => tslib_1.__awaiter(void 0, [_5, _e], void 0, function* (_, { id, name, description, price }) {
-    return { id, name, description, price };
+const UpdateProduct = (_5, _e) => tslib_1.__awaiter(void 0, [_5, _e], void 0, function* (_, { id, name, description, price, category, status, }) {
+    return yield db_1.default.products.update({
+        where: { id },
+        data: { name, description, price, category, status },
+    });
 });
 exports.UpdateProduct = UpdateProduct;
+const ChangeStatus = (_6, _f) => tslib_1.__awaiter(void 0, [_6, _f], void 0, function* (_, { id, status }) {
+    return yield db_1.default.products.update({
+        where: { id },
+        data: { status },
+    });
+});
+exports.ChangeStatus = ChangeStatus;
 //# sourceMappingURL=index.js.map
