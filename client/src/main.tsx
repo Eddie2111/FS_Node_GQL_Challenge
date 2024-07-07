@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
 import Layout from "./components/layouts";
+import { AuthProvider } from "./contexts/AuthContext";
 import { GraphqlLayer } from "./graphql/api";
 import { router } from "./routes/router";
 
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Layout>
       <GraphqlLayer>
-        <RouterProvider router={router} />
+        <AuthProvider>
+          <RouterProvider router={router} />
+        </AuthProvider>
       </GraphqlLayer>
     </Layout>
   </React.StrictMode>

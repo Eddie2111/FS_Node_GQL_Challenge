@@ -9,9 +9,11 @@ import { useForm } from "@mantine/form";
 
 import { signIn, signUp } from "../graphql/mutations/users/index"
 import { loginSchema, registerSchema } from "../utils/validation/user";
+import { useAuth } from "../contexts/AuthContext";
 
 export function AuthenticationForm(props: PaperProps) {
   const client = useApolloClient();
+  const { login, userLogin, userData } = useAuth();
   const [type, toggle] = useToggle(["login", "register"]);
   const [
     SignIn,
@@ -66,7 +68,11 @@ export function AuthenticationForm(props: PaperProps) {
         await SignIn({
           variables: { email: data.email, password: data.password },
         });
-        console.log(signin_data);
+        if(signin_data) {
+          userLogin(signin_data);
+          login();
+        }
+        console.log(signin_data, userData);
       } else {
         await SignUp({
           variables: {

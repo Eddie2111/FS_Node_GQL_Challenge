@@ -6,6 +6,7 @@ import { AuthenticationForm } from "../apps/login";
 import Product from '../apps/product';
 import Profile from "../apps/profile";
 import Test from "../apps/test";
+import ProtectedRoute from '../hooks/protectedRoute';
 import App from "../App";
 
 export const router = createBrowserRouter([
@@ -20,9 +21,11 @@ export const router = createBrowserRouter([
   {
     path: "/signin",
     element: (
+      <ProtectedRoute>
       <Suspense fallback={<div>Loading...</div>}>
         <AuthenticationForm />
       </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
@@ -36,17 +39,21 @@ export const router = createBrowserRouter([
   {
     path: "/profile",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Profile />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Profile />
+        </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
     path: "/home",
     element: (
+      <ProtectedRoute>
       <Suspense fallback={<div>Loading...</div>}>
         <Home />
       </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
