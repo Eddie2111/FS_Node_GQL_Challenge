@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
 import { Container } from "@mantine/core";
 import { getOneUser } from "../graphql/mutations/users/index";
@@ -36,8 +35,8 @@ const Profile = () => {
         </div>
         <h2 className="mb-4 font-semibold text-xl">Products added by you</h2>
         <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {getUserById.Products.map((product):ProductProps => (
-            <ProductCardProfile product={product}/>
+          {getUserById.Products.map((product: ProductProps) => (
+            <ProductCardProfile product={product} />
           ))}
         </div>
       </Container>

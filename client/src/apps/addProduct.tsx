@@ -50,7 +50,7 @@ const AddProduct: React.FC = () => {
   const handleSubmit = async (values: typeof form.values) => {
     try {
       const userId = userData?.id ?? "0";
-      await createProduct({ variables: { ...values, user_id: parseInt(userId, 10) } });
+      await createProduct({ variables: { ...values, user_id: parseInt(userId ?? 0, 10) } });
       form.reset();
       toast.success('Product has been created, check home update!');
       // Optionally handle post-submission, e.g., notify user or redirect

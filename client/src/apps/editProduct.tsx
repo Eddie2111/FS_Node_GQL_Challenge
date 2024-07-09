@@ -60,7 +60,7 @@ export default function Product() {
     navigate("/home");
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await UpdateProduct({
@@ -81,7 +81,7 @@ export default function Product() {
     }
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:React.FormEvent<HTMLFormElement>) => {
     const { name, value } = e.currentTarget;
     setFormData({ ...formData, [name]: value });
   };
@@ -114,10 +114,7 @@ export default function Product() {
         <div className="flex justify-center items-center p-4">
           <Card shadow="sm" padding="lg" className="w-full max-w-md">
             <form onSubmit={handleSubmit}>
-              <Group
-                position="apart"
-                style={{ marginBottom: 5, marginTop: "1rem" }}
-              >
+              <Group className="flex justify-between mt-4 mb-5">
                 <TextInput
                   label="Name"
                   id="name"
@@ -125,6 +122,7 @@ export default function Product() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
+                  className="w-full"
                 />
                 <TextInput
                   label="Price"
@@ -134,6 +132,7 @@ export default function Product() {
                   value={formData.price}
                   onChange={handleInputChange}
                   required
+                  className="w-full"
                 />
               </Group>
 
@@ -144,10 +143,10 @@ export default function Product() {
                 value={formData.description}
                 onChange={handleInputChange}
                 required
-                multiline
+                className="mt-4 w-full"
               />
 
-              <Group position="apart" style={{ marginTop: "1rem" }}>
+              <Group className="flex justify-between mt-4">
                 <Select
                   label="Category"
                   id="category"
@@ -161,9 +160,10 @@ export default function Product() {
                   ]}
                   value={formData.category}
                   onChange={(value) =>
-                    setFormData({ ...formData, category: value })
+                    setFormData({ ...formData, category: value ?? 'ELECTRONICS' })
                   }
                   required
+                  className="w-full"
                 />
                 <Select
                   label="Status"
@@ -176,9 +176,10 @@ export default function Product() {
                   ]}
                   value={formData.status}
                   onChange={(value) =>
-                    setFormData({ ...formData, status: value })
+                    setFormData({ ...formData, status: value ?? "INTACT" })
                   }
                   required
+                  className="w-full"
                 />
               </Group>
 
@@ -187,7 +188,7 @@ export default function Product() {
                 variant="light"
                 color="blue"
                 fullWidth
-                style={{ marginTop: 14 }}
+                className="mt-4"
                 disabled={updateProgress}
               >
                 {updateProgress ? "Updating..." : "Update"}
