@@ -22,11 +22,12 @@ The backend of Teebay is built using Express.js and Apollo Server, with PostgreS
 * Users can view user counts and product counts.
 * Users are able to rent a product
 * Users are able to buy a product
+* Users are only able to edit their own added products
 
 ### Advancement
 
 - Users can assign time for how long the product can be rented
-- Users are only able to edit their own added products
+- Tackling time overlap
 
 ### Project Documentations
 

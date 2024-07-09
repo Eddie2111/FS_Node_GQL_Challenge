@@ -1,9 +1,27 @@
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
+import { Card, Text, Button, Group, TextInput, Select } from "@mantine/core";
 
-import { useQuery } from "@apollo/client";
-import { Card, Text, Badge, Button, Group } from "@mantine/core";
+import {
+  getOneProductByID,
+  updateProductByID,
+} from "../graphql/mutations/products/index";
+import { toast } from "sonner";
 
-import { getOneProductByID } from "../graphql/mutations/products/index";
+enum Categories {
+  ELECTRONICS = "ELECTRONICS",
+  FURNITURE = "FURNITURE",
+  HOME_APPLIANCE = "HOME_APPLIANCE",
+  SPORTING_GOODS = "SPORTING_GOODS",
+  TOYS = "TOYS",
+}
+
+enum ProductStatus {
+  INTACT = "INTACT",
+  BOUGHT = "BOUGHT",
+  RENTED = "RENTED",
+}
 
 export default function Product() {
   const navigate = useNavigate();
@@ -13,6 +31,60 @@ export default function Product() {
       id: searchParams.get("id"),
     },
   });
+
+  const [UpdateProduct, { loading: updateProgress }] =
+    useMutation(updateProductByID);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    price: 0,
+    description: "",
+    category: "",
+    status: "",
+  });
+
+  useEffect(() => {
+    if (!loading && data) {
+      const { readOneProduct } = data;
+      setFormData({
+        name: readOneProduct.name,
+        price: readOneProduct.price,
+        description: readOneProduct.description,
+        category: readOneProduct.category,
+        status: readOneProduct.status,
+      });
+    }
+  }, [loading, data]);
+
+  const handleBack = () => {
+    navigate("/home");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await UpdateProduct({
+        variables: {
+          id: searchParams.get("id"),
+          name: formData.name,
+          price: parseFloat(formData.price), // Convert price to float if necessary
+          description: formData.description,
+          category: formData.category.toUpperCase() as Categories, // Ensure type safety by casting
+          status: formData.status.toUpperCase() as ProductStatus, // Ensure type safety by casting
+        },
+      });
+      toast.success("Product data updated successfully");
+      navigate("/profile");
+    } catch (err) {
+      console.error("Error updating product:", err);
+      toast.error("Failed to update product data");
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.currentTarget;
+    setFormData({ ...formData, [name]: value });
+  };
 
   if (loading) {
     return (
@@ -31,68 +103,96 @@ export default function Product() {
   }
 
   if (data) {
-    const { readOneProduct } = data;
-
     return (
       <>
         <Text
           className="mx-20 mb-4 w-[180px] text-xl hover:text-blue-500 underline duration-300"
-          onClick={() => navigate("/home")}
+          onClick={handleBack}
         >
-          {" "}
-          ← Back to home{" "}
+          ← Back to home
         </Text>
         <div className="flex justify-center items-center p-4">
           <Card shadow="sm" padding="lg" className="w-full max-w-md">
-            <Group
-              position="apart"
-              style={{ marginBottom: 5, marginTop: "1rem" }}
-            >
-              <Text weight={500}>{readOneProduct.name}</Text>
-              <Badge color="pink" variant="light">
-                ${readOneProduct.price}
-              </Badge>
-            </Group>
-
-            <Text size="sm" style={{ lineHeight: 1.5 }}>
-              {readOneProduct.description}
-            </Text>
-
-            <div className="flex flex-row items-center mt-4">
-              <Badge color="blue" variant="light">
-                {readOneProduct.category}
-              </Badge>
-              <Badge
-                color={readOneProduct.status === "INTACT" ? "green" : "red"}
-                variant="light"
-                className="mx-2"
+            <form onSubmit={handleSubmit}>
+              <Group
+                position="apart"
+                style={{ marginBottom: 5, marginTop: "1rem" }}
               >
-                {readOneProduct.status}
-              </Badge>
-            </div>
+                <TextInput
+                  label="Name"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
+                />
+                <TextInput
+                  label="Price"
+                  id="price"
+                  name="price"
+                  type="number"
+                  value={formData.price}
+                  onChange={handleInputChange}
+                  required
+                />
+              </Group>
 
-            <Text size="xs" color="dimmed" className="my-4">
-              Added by: {readOneProduct.user.name} ({readOneProduct.user.email})
-            </Text>
+              <TextInput
+                label="Description"
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                required
+                multiline
+              />
 
-            <Button
-              variant="light"
-              color="blue"
-              fullWidth
-              style={{ marginTop: 14 }}
-              disabled={readOneProduct.status === "INTACT" ? false : true}
-            >
-              Buy Now
-            </Button>
-            <Button
-              variant="light"
-              color="red"
-              fullWidth
-              style={{ marginTop: 14 }}
-              disabled={readOneProduct.status === "INTACT" ? false : true}
-            >
-              Rent Now
-            </Button>
+              <Group position="apart" style={{ marginTop: "1rem" }}>
+                <Select
+                  label="Category"
+                  id="category"
+                  name="category"
+                  data={[
+                    { value: "ELECTRONICS", label: "Electronics" },
+                    { value: "FURNITURE", label: "Furniture" },
+                    { value: "HOME_APPLIANCE", label: "Home Appliances" },
+                    { value: "SPORTING_GOODS", label: "Sporting Goods" },
+                    { value: "TOYS", label: "Toys" },
+                  ]}
+                  value={formData.category}
+                  onChange={(value) =>
+                    setFormData({ ...formData, category: value })
+                  }
+                  required
+                />
+                <Select
+                  label="Status"
+                  id="status"
+                  name="status"
+                  data={[
+                    { value: "INTACT", label: "Intact" },
+                    { value: "BOUGHT", label: "Bought" },
+                    { value: "RENTED", label: "Rented" },
+                  ]}
+                  value={formData.status}
+                  onChange={(value) =>
+                    setFormData({ ...formData, status: value })
+                  }
+                  required
+                />
+              </Group>
+
+              <Button
+                type="submit"
+                variant="light"
+                color="blue"
+                fullWidth
+                style={{ marginTop: 14 }}
+                disabled={updateProgress}
+              >
+                {updateProgress ? "Updating..." : "Update"}
+              </Button>
+            </form>
           </Card>
         </div>
       </>

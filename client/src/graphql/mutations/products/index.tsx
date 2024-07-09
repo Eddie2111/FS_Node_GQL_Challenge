@@ -67,18 +67,24 @@ const updateProductByID =  gql`
         $id: String!
         $name: String!
         $description: String!
-        $price: String!
+        $price: Int!
+        $category: Categories
+        $status: ProductStatus
       ) {
         updateProduct(
           id: $id
           name: $name
           description: $description
           price: $price
+          category: $category
+          status: $status
         ) {
           id
           name
           description
           price
+          category
+          status
         }
       }
     `;
@@ -88,21 +94,20 @@ const create_product = gql`
     $description: String!
     $price: Int!
     $category: Categories!
-    $user_id: Int!
+    $status: ProductStatus!
   ) {
     createProduct(
       name: $name
       description: $description
       price: $price
       category: $category
-      user_id: $user_id
+      status: $status
     ) {
-      id
       name
       description
       price
       category
-      user_id
+      status
     }
   }
 `;

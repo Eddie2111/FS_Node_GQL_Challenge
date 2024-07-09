@@ -14,11 +14,12 @@ const productBasedMutations = `
       user_id: Int!
     ): Product
     updateProduct(
-      serial: Int!
+      id: String!
       name: String!
       description: String!
       price: Int!
-      category: Categories!
+      category: Categories
+      status: ProductStatus
     ): Product
     removeProduct(serial: Int!): String
     changeStatus(
