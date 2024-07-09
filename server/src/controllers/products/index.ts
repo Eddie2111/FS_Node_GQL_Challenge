@@ -111,7 +111,7 @@ const UpdateProduct = async (
 ): Promise<Partial<Products | null>> => {
   return await prisma.products.update({
     where: { id },
-    data: { name, description, price, category, status },
+    data: { name, description, price, category, status, updated_at: new Date() },
   })
 };
 
@@ -132,6 +132,8 @@ const getBoughtProducts = async (
     name: string;
     id: string;
     price: number;
+    status: string;
+    category: string;
     description: string;
     created_at: Date;
     updated_at: Date;
@@ -146,6 +148,8 @@ const getBoughtProducts = async (
       id: true,
       name: true,
       price: true,
+      status: true,
+      category: true,
       description: true,
       created_at: true,
       updated_at: true,
@@ -166,6 +170,8 @@ const getIntactProducts = async (
     name: string;
     id: string;
     price: number;
+    status: string;
+    category: string;
     description: string;
     created_at: Date;
     updated_at: Date;
@@ -180,6 +186,8 @@ const getIntactProducts = async (
       id: true,
       name: true,
       price: true,
+      status: true,
+      category: true,
       description: true,
       created_at: true,
       updated_at: true,
@@ -200,6 +208,8 @@ const getRentedProducts = async (
     name: string;
     id: string;
     price: number;
+    status: string;
+    category: string;
     description: string;
     created_at: Date;
     updated_at: Date;
@@ -214,6 +224,8 @@ const getRentedProducts = async (
       id: true,
       name: true,
       price: true,
+      status: true,
+      category: true,
       description: true,
       created_at: true,
       updated_at: true,

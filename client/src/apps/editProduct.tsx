@@ -1,15 +1,13 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Card, Text, Badge, Button, Group } from "@mantine/core";
-import { getOneProductByID, changeStatus } from "../graphql/mutations/products/index";
-import { toast } from 'sonner';
+
+import { getOneProductByID } from "../graphql/mutations/products/index";
 
 export default function Product() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [ChangeStatus, { loading: change_loading }] =
-    useMutation(changeStatus);
   const { data, loading, error } = useQuery(getOneProductByID, {
     variables: {
       id: searchParams.get("id"),
@@ -82,17 +80,7 @@ export default function Product() {
               color="blue"
               fullWidth
               style={{ marginTop: 14 }}
-              disabled={
-                (readOneProduct.status === "INTACT" ? false : true) &&
-                (change_loading ? false : true)
-              }
-              onClick={async () => {
-                await ChangeStatus({
-                  variables: { id: readOneProduct.id, status: "BOUGHT" },
-                });
-                toast.success("Product has been bought by you!");
-                navigate("/home");
-              }}
+              disabled={readOneProduct.status === "INTACT" ? false : true}
             >
               Buy Now
             </Button>
@@ -102,13 +90,6 @@ export default function Product() {
               fullWidth
               style={{ marginTop: 14 }}
               disabled={readOneProduct.status === "INTACT" ? false : true}
-              onClick={async () => {
-                await ChangeStatus({
-                  variables: { id: readOneProduct.id, status: "RENTED" },
-                });
-                toast.success("Product has been rented by you!");
-                navigate("/home");
-              }}
             >
               Rent Now
             </Button>

@@ -18,14 +18,9 @@ return (
       </Badge>
     </Group>
 
-    <div className="flex flex-row gap-4">
-      <Badge color="blue" variant="light" className="text-md">
-        {product.category}
-      </Badge>
-      <Badge color={product.status === 'INTACT' ? 'blue' : 'pink'} variant="light" className="text-md">
-        {product.status}
-      </Badge>
-    </div>
+    <Badge color="blue" variant="light" className="text-md">
+      {product.category}
+    </Badge>
 
     <Text size="sm" style={{ lineHeight: 1.5 }}>
       {product.description}
@@ -38,6 +33,13 @@ return (
         onClick={() => navigate(`/product/?id=${product.id}`)}
       >
         View
+      </Button>
+      <Button
+        variant="light"
+        color="green"
+        onClick={() => navigate(`/editproduct/?id=${product.id}`)}
+      >
+        Edit
       </Button>
     </Group>
   </Card>

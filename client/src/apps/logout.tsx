@@ -11,7 +11,7 @@ export default function Logout() {
     useEffect(() => {
         logout();
         navigate('/signin');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        localStorage.clear();
+    }, [logout, navigate]);
     return <center><Loader /></center>;
 }

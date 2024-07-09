@@ -8,6 +8,8 @@ Teebay is a simple product renting and buying/selling application. The applicati
 
 ### Overview
 
+The frontend of TeeBay is built using ReactJS and Apollo graphql utilizing it's in memory caching. The app becomes active after the first contact with the backend.
+
 The backend of Teebay is built using Express.js and Apollo Server, with PostgreSQL as the database managed by Prisma ORM. The application provides GraphQL APIs for user authentication and managing products.
 
 ### Features
@@ -18,11 +20,11 @@ The backend of Teebay is built using Express.js and Apollo Server, with PostgreS
 * Users can view all products.
 * Users can view the products they have uploaded.
 * Users can view user counts and product counts.
+* Users are able to rent a product
+* Users are able to buy a product
 
 ### Advancement
 
-- Users are able to rent a product
-- Users are able to buy a product
 - Users can assign time for how long the product can be rented
 - Users are only able to edit their own added products
 

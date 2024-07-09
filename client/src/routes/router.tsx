@@ -11,7 +11,7 @@ import Profile from "../apps/profile";
 import Test from "../apps/test";
 import ProtectedRoute from '../hooks/protectedRoute';
 import App from "../App";
-
+import EditProduct from "../apps/editProduct";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -65,6 +65,16 @@ export const router = createBrowserRouter([
       <ProtectedRoute>
         <Suspense fallback={<div>Loading...</div>}>
           <Product />
+        </Suspense>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/editproduct",
+    element: (
+      <ProtectedRoute>
+        <Suspense fallback={<div>Loading...</div>}>
+          <EditProduct />
         </Suspense>
       </ProtectedRoute>
     ),

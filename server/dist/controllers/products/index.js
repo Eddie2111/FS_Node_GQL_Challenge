@@ -71,7 +71,7 @@ exports.CreateProduct = CreateProduct;
 const UpdateProduct = (_5, _e) => tslib_1.__awaiter(void 0, [_5, _e], void 0, function* (_, { id, name, description, price, category, status, }) {
     return yield db_1.default.products.update({
         where: { id },
-        data: { name, description, price, category, status },
+        data: { name, description, price, category, status, updated_at: new Date() },
     });
 });
 exports.UpdateProduct = UpdateProduct;
@@ -91,6 +91,8 @@ const getBoughtProducts = (_7, _g) => tslib_1.__awaiter(void 0, [_7, _g], void 0
             id: true,
             name: true,
             price: true,
+            status: true,
+            category: true,
             description: true,
             created_at: true,
             updated_at: true,
@@ -113,6 +115,8 @@ const getIntactProducts = (_8, _h) => tslib_1.__awaiter(void 0, [_8, _h], void 0
             id: true,
             name: true,
             price: true,
+            status: true,
+            category: true,
             description: true,
             created_at: true,
             updated_at: true,
@@ -135,6 +139,8 @@ const getRentedProducts = (_9, _j) => tslib_1.__awaiter(void 0, [_9, _j], void 0
             id: true,
             name: true,
             price: true,
+            status: true,
+            category: true,
             description: true,
             created_at: true,
             updated_at: true,

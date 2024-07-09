@@ -4,7 +4,7 @@ import { Container } from "@mantine/core";
 import { getOneUser } from "../graphql/mutations/users/index";
 import { useAuth } from "../contexts/AuthContext";
 import { ProductProps } from "../types/product.d";
-import ProductCard from '../components/ProductCard';
+import ProductCardProfile from '../components/ProductCard_Profile';
 const Profile = () => {
   const { userData } = useAuth();
   const userID = userData?.id;
@@ -37,7 +37,7 @@ const Profile = () => {
         <h2 className="mb-4 font-semibold text-xl">Products added by you</h2>
         <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {getUserById.Products.map((product):ProductProps => (
-            <ProductCard product={product}/>
+            <ProductCardProfile product={product}/>
           ))}
         </div>
       </Container>
