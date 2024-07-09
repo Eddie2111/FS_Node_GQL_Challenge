@@ -112,3 +112,45 @@ Payload example {
   "id":"a9d317da-1b38-4c11-b3ca-43026e71d7ee",
   "status":"BOUGHT"
 }
+
+## get Bought products
+
+```json
+query getBoughtProducts($page: Int!){
+    getBoughtProducts(page: $page) {id name description price category user_id status created_at updated_at status user { name email }}
+}
+```
+
+## get rent products
+
+```json
+query getRentProducts($page: Int!){
+    getRentProducts(page: $page) {id name description price category user_id status created_at updated_at status user { name email }}
+}
+```
+
+## get intact products
+
+```json
+query getIntactProducts($page: Int!){
+    getIntactProducts(page: $page) {id name description price category user_id status created_at updated_at status user { name email }}
+}
+```
+
+# Analytics
+
+## Get Product Count
+
+```json
+query GetProductCount {
+    getProductCount
+}
+```
+
+## Get User count
+
+```json
+query GetUsersCount {
+    getUserCount
+}
+```

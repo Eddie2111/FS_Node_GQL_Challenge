@@ -8,6 +8,7 @@ exports.userTypeDefs = (0, apollo_server_express_1.gql) `
     email: String
     name: String
     password: String
+    Products: [FullProduct]
   }
 `;
 //# sourceMappingURL=user.js.map

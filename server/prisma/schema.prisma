@@ -15,6 +15,7 @@ enum Categories {
   OUTDOOR
   TOYS
 }
+
 enum ProductStatus {
   INTACT
   BOUGHT
@@ -30,15 +31,31 @@ model User {
 }
 
 model Products {
-  serial      Int        @id @default(autoincrement())
-  id          String     @unique @db.Uuid
-  name        String     @db.VarChar(16)
-  price       Int        @db.Integer()
-  description String     @db.VarChar(512)
+  serial      Int           @id @default(autoincrement())
+  id          String        @unique @db.Uuid
+  name        String        @db.VarChar(16)
+  price       Int           @db.Integer()
+  description String        @db.VarChar(512)
   status      ProductStatus @default(INTACT)
   category    Categories
   user_id     Int
-  user        User       @relation(fields: [user_id], references: [id])
-  created_at  DateTime   @default(now())
-  updated_at  DateTime   @updatedAt
+  user        User          @relation(fields: [user_id], references: [id])
+  created_at  DateTime      @default(now())
+  updated_at  DateTime      @updatedAt
+}
+
+model Bought {
+  id         Int @id
+  product_id Int @unique
+  createdby  Int
+  boughtby   Int
+}
+
+model Rented {
+  id         Int      @id
+  product_id Int      @unique
+  createdby  Int
+  rentedby   Int
+  from       DateTime
+  to         DateTime
 }

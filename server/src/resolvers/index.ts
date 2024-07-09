@@ -14,7 +14,7 @@ import {
   signIn,
   signUp,
   RemoveUser,
-  getUserID
+  getUserByID
 } from '../controllers/users';
 import {
   getProductCount,
@@ -30,7 +30,7 @@ export const resolvers = {
     // test
     hello: hello,
     // user controls
-    getUserById: getUserID,
+    getUserById: getUserByID,
     logout: logOut,
     // product controls
     deleteProduct: DeleteProduct,

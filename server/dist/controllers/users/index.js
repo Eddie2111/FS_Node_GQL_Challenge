@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserID = exports.RemoveUser = exports.signUp = exports.signIn = exports.logOut = void 0;
+exports.getUserByID = exports.RemoveUser = exports.signUp = exports.signIn = exports.logOut = void 0;
 const tslib_1 = require("tslib");
 const users_1 = require("../../validations/users");
 const bcrypt_1 = tslib_1.__importDefault(require("bcrypt"));
@@ -10,7 +10,7 @@ const logOut = (_1, _a) => tslib_1.__awaiter(void 0, [_1, _a], void 0, function*
     return `User with id ${data} has been logged out`;
 });
 exports.logOut = logOut;
-const getUserID = (_2, _b) => tslib_1.__awaiter(void 0, [_2, _b], void 0, function* (_, { id }) {
+const getUserByID = (_2, _b) => tslib_1.__awaiter(void 0, [_2, _b], void 0, function* (_, { id }) {
     const userID = users_1.ProfileIdSchema.parse(id);
     return yield db_1.default.user.findFirst({
         where: {
@@ -20,10 +20,11 @@ const getUserID = (_2, _b) => tslib_1.__awaiter(void 0, [_2, _b], void 0, functi
             id: true,
             name: true,
             email: true,
+            Products: true,
         },
     });
 });
-exports.getUserID = getUserID;
+exports.getUserByID = getUserByID;
 const signIn = (_3, _c) => tslib_1.__awaiter(void 0, [_3, _c], void 0, function* (_, { email, password }) {
     var _d;
     const data = users_1.signInSchema.parse({ email, password });

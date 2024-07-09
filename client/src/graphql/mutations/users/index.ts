@@ -27,8 +27,18 @@ const GET_USER = gql`
 
 const getOneUser = gql`
   query getOneUser($id: Int!) {
-      getUserById(id: $id)
-      { id name email }
+    getUserById(id: $id) {
+      id
+      name
+      email
+      Products {
+        id
+        name
+        price
+        status
+        category
+      }
+    }
   }
 `;
 

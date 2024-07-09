@@ -10,7 +10,7 @@ const hello_1 = tslib_1.__importDefault(require("../controllers/hello"));
 exports.resolvers = {
     Query: {
         hello: hello_1.default,
-        getUserById: users_1.getUserID,
+        getUserById: users_1.getUserByID,
         logout: users_1.logOut,
         deleteProduct: products_1.DeleteProduct,
         readOneProduct: products_1.ReadOneProduct,

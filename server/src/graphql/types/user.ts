@@ -6,5 +6,6 @@ export const userTypeDefs = gql`
     email: String
     name: String
     password: String
+    Products: [FullProduct]
   }
 `;

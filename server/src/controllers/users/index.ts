@@ -15,7 +15,7 @@ const logOut = async (_: any, { id }: { id: string }): Promise<string> => {
   return `User with id ${data} has been logged out`;
 };
 
-const getUserID = async (
+const getUserByID = async (
   _: any,
   { id }: { id: number }
 ): Promise<Partial<UserProps | null>> => {
@@ -28,6 +28,7 @@ const getUserID = async (
       id: true,
       name: true,
       email: true,
+      Products: true,
     },
   });
 };
@@ -75,4 +76,4 @@ const RemoveUser = async (_: any, { email }: { email: string }): Promise<string>
   return `User with email ${data} has been removed`;
 };
 
-export { logOut, signIn, signUp, RemoveUser, getUserID };
+export { logOut, signIn, signUp, RemoveUser, getUserByID };
