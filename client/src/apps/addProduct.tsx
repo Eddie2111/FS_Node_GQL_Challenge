@@ -7,6 +7,7 @@ import {
   Title,
 } from "@mantine/core";
 import React from "react";
+import { toast } from "sonner";
 
 import { useForm } from "@mantine/form";
 import { useMutation } from "@apollo/client";
@@ -22,7 +23,7 @@ enum Categories {
   OUTDOOR = "OUTDOOR",
   TOYS = "TOYS",
 }
-type Category = keyof typeof Categories;
+// type Category = keyof typeof Categories;
 
 const AddProduct: React.FC = () => {
     const { userData } = useAuth();
@@ -51,6 +52,7 @@ const AddProduct: React.FC = () => {
       const userId = userData?.id ?? "0";
       await createProduct({ variables: { ...values, user_id: parseInt(userId, 10) } });
       form.reset();
+      toast.success('Product has been created, check home update!');
       // Optionally handle post-submission, e.g., notify user or redirect
     } catch (err) {
       console.error("Error creating product", err);

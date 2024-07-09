@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ChangeStatus = exports.UpdateProduct = exports.ReadOneProduct = exports.ReadAllProducts = exports.DeleteProduct = exports.CreateProduct = void 0;
+exports.getRentedProducts = exports.getIntactProducts = exports.getBoughtProducts = exports.ChangeStatus = exports.UpdateProduct = exports.ReadOneProduct = exports.ReadAllProducts = exports.DeleteProduct = exports.CreateProduct = void 0;
 const tslib_1 = require("tslib");
 const uuid_1 = require("uuid");
 const db_1 = tslib_1.__importDefault(require("../../lib/db"));
@@ -19,6 +19,24 @@ const ReadOneProduct = (_2, _b) => tslib_1.__awaiter(void 0, [_2, _b], void 0, f
     }
     return yield db_1.default.products.findUnique({
         where: { id },
+        select: {
+            id: true,
+            name: true,
+            description: true,
+            price: true,
+            category: true,
+            status: true,
+            created_at: true,
+            updated_at: true,
+            user_id: true,
+            user: {
+                select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                },
+            },
+        },
     });
 });
 exports.ReadOneProduct = ReadOneProduct;
@@ -64,4 +82,70 @@ const ChangeStatus = (_6, _f) => tslib_1.__awaiter(void 0, [_6, _f], void 0, fun
     });
 });
 exports.ChangeStatus = ChangeStatus;
+const getBoughtProducts = (_7, _g) => tslib_1.__awaiter(void 0, [_7, _g], void 0, function* (_, { page }) {
+    return yield db_1.default.products.findMany({
+        where: { status: 'BOUGHT' },
+        take: 10,
+        skip: (page - 1) * 10,
+        select: {
+            id: true,
+            name: true,
+            price: true,
+            description: true,
+            created_at: true,
+            updated_at: true,
+            user: {
+                select: {
+                    name: true,
+                    email: true,
+                },
+            },
+        },
+    });
+});
+exports.getBoughtProducts = getBoughtProducts;
+const getIntactProducts = (_8, _h) => tslib_1.__awaiter(void 0, [_8, _h], void 0, function* (_, { page }) {
+    return yield db_1.default.products.findMany({
+        where: { status: 'INTACT' },
+        take: 10,
+        skip: (page - 1) * 10,
+        select: {
+            id: true,
+            name: true,
+            price: true,
+            description: true,
+            created_at: true,
+            updated_at: true,
+            user: {
+                select: {
+                    name: true,
+                    email: true,
+                },
+            },
+        },
+    });
+});
+exports.getIntactProducts = getIntactProducts;
+const getRentedProducts = (_9, _j) => tslib_1.__awaiter(void 0, [_9, _j], void 0, function* (_, { page }) {
+    return yield db_1.default.products.findMany({
+        where: { status: 'RENTED' },
+        take: 10,
+        skip: (page - 1) * 10,
+        select: {
+            id: true,
+            name: true,
+            price: true,
+            description: true,
+            created_at: true,
+            updated_at: true,
+            user: {
+                select: {
+                    name: true,
+                    email: true,
+                },
+            },
+        },
+    });
+});
+exports.getRentedProducts = getRentedProducts;
 //# sourceMappingURL=index.js.map

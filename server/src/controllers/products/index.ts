@@ -14,15 +14,41 @@ const DeleteProduct = async (_: any, { id }: { id: string }): Promise<string> =>
   return `Product with ID ${id} deleted`;
 };
 
+interface UserExtendedProducts extends Products {
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+}
+
 const ReadOneProduct = async (
   _: any,
   { id }: { id: string }
-): Promise<Partial<Products | null>> => {
+): Promise<Partial<UserExtendedProducts | null>> => {
   if (!ProductIdSchema.parse(id)) {
     throw new Error('Invalid product ID');
   }
   return await prisma.products.findUnique({
     where: { id },
+    select: {
+      id: true,
+      name: true,
+      description: true,
+      price: true,
+      category: true,
+      status: true,
+      created_at: true,
+      updated_at: true,
+      user_id: true,
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
   });
 };
 
@@ -98,5 +124,116 @@ const ChangeStatus = async (
     data: { status },
   })
 };
-
-export { CreateProduct, DeleteProduct, ReadAllProducts, ReadOneProduct, UpdateProduct, ChangeStatus };
+const getBoughtProducts = async (
+  _: any,
+  { page }: { page: number }
+): Promise<
+  {
+    name: string;
+    id: string;
+    price: number;
+    description: string;
+    created_at: Date;
+    updated_at: Date;
+    user: { name: string; email: string };
+  }[]
+> => {
+  return await prisma.products.findMany({
+    where: { status: 'BOUGHT' },
+    take: 10,
+    skip: (page - 1) * 10,
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      description: true,
+      created_at: true,
+      updated_at: true,
+      user: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+};
+const getIntactProducts = async (
+  _: any,
+  { page }: { page: number }
+): Promise<
+  {
+    name: string;
+    id: string;
+    price: number;
+    description: string;
+    created_at: Date;
+    updated_at: Date;
+    user: { name: string; email: string };
+  }[]
+> => {
+  return await prisma.products.findMany({
+    where: { status: 'INTACT' },
+    take: 10,
+    skip: (page - 1) * 10,
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      description: true,
+      created_at: true,
+      updated_at: true,
+      user: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+};
+const getRentedProducts = async (
+  _: any,
+  { page }: { page: number }
+): Promise<
+  {
+    name: string;
+    id: string;
+    price: number;
+    description: string;
+    created_at: Date;
+    updated_at: Date;
+    user: { name: string; email: string };
+  }[]
+> => {
+  return await prisma.products.findMany({
+    where: { status: 'RENTED' },
+    take: 10,
+    skip: (page - 1) * 10,
+    select: {
+      id: true,
+      name: true,
+      price: true,
+      description: true,
+      created_at: true,
+      updated_at: true,
+      user: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+};
+export { 
+  CreateProduct,
+  DeleteProduct,
+  ReadAllProducts,
+  ReadOneProduct,
+  UpdateProduct,
+  ChangeStatus,
+  getBoughtProducts,
+  getIntactProducts,
+  getRentedProducts,
+};

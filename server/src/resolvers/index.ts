@@ -4,7 +4,10 @@ import {
   ReadAllProducts,
   ReadOneProduct,
   UpdateProduct,
-  ChangeStatus
+  ChangeStatus,
+  getBoughtProducts,
+  getIntactProducts,
+  getRentedProducts,
 } from '../controllers/products';
 import {
   logOut,
@@ -13,7 +16,12 @@ import {
   RemoveUser,
   getUserID
 } from '../controllers/users';
-import { getProductCount } from "../controllers/analytics/products";
+import {
+  getProductCount,
+  getBoughtProductsCount,
+  getIntactProductsCount,
+  getRentedProductsCount,
+} from '../controllers/analytics/products';
 import { getUserCount, getUsersByPage } from '../controllers/analytics/users';
 import hello from '../controllers/hello';
 
@@ -28,10 +36,17 @@ export const resolvers = {
     deleteProduct: DeleteProduct,
     readOneProduct: ReadOneProduct,
     readAllProducts: ReadAllProducts,
-    // analytics
+    getBoughtProducts: getBoughtProducts,
+    getIntactProducts: getIntactProducts,
+    getRentedProducts: getRentedProducts,
+    // user analytics
     getUserCount: getUserCount,
     getUsersByPage: getUsersByPage,
+    // product analytics
     getProductCount: getProductCount,
+    getBoughtProductsCount: getBoughtProductsCount,
+    getIntactProductsCount: getIntactProductsCount,
+    getRentedProductsCount: getRentedProductsCount,
   },
   Mutation: {
     // user controls

@@ -2,10 +2,11 @@ import { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import AddProduct from '../apps/addProduct';
+import Analytics from '../apps/analytics';
 import Home from "../apps/home";
 import { AuthenticationForm } from "../apps/login";
 import Logout from '../apps/logout';
-import Product from '../apps/product';
+import Product from "../apps/product"
 import Profile from "../apps/profile";
 import Test from "../apps/test";
 import ProtectedRoute from '../hooks/protectedRoute';
@@ -74,6 +75,16 @@ export const router = createBrowserRouter([
       <ProtectedRoute>
         <Suspense fallback={<div>Loading...</div>}>
           <AddProduct />
+        </Suspense>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/analytics",
+    element: (
+      <ProtectedRoute>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Analytics />
         </Suspense>
       </ProtectedRoute>
     ),

@@ -10,9 +10,11 @@ import { useForm } from "@mantine/form";
 import { signIn, signUp } from "../graphql/mutations/users/index"
 import { loginSchema, registerSchema } from "../utils/validation/user";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
 export function AuthenticationForm(props: PaperProps) {
   const { login, userLogin } = useAuth();
+  const navigate = useNavigate();
   const [type, toggle] = useToggle(["login", "register"]);
   const [
     SignIn,
@@ -20,7 +22,7 @@ export function AuthenticationForm(props: PaperProps) {
   ] = useMutation(signIn);
   const [
     SignUp,
-    { data: signup_data, loading: signup_loading, error: signup_error },
+    { loading: signup_loading, error: signup_error },
   ] = useMutation(signUp);
 
   const form = useForm({
@@ -31,6 +33,7 @@ export function AuthenticationForm(props: PaperProps) {
     },
 
     validate: {
+      name: (val) => (/^\S+@\S+$/.test(val) ? null : null),
       email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
       password: (val) =>
         val.length <= 6
@@ -46,21 +49,24 @@ export function AuthenticationForm(props: PaperProps) {
 
       if (type === "login") {
         const response = await SignIn({
-          variables: { email: data.email, password: data.password },
+          variables: { email: data?.email ?? "", password: data?.password ?? "" },
         });
         if (response?.data?.signIn?.email && response?.data?.signIn?.id) {
-          userLogin(response?.data?.signIn);
+          userLogin(response?.data?.signIn ?? {id: "", email: "", name: ""});
           login();
+          navigate("/home");
         }
       } else {
-        await SignUp({
+        const response = await SignUp({
           variables: {
-            email: data.email,
-            password: data.password,
-            name: data.name,
+            email: data?.email ?? "",
+            password: data?.password ?? "",
+            name: data?.name ?? "",
           },
         });
-        console.log(signup_data);
+        if(response?.data?.signUp?.email){
+          toggle();
+        }
       }
     } catch (error) {
       console.error(error);

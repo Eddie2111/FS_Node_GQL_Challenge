@@ -26,7 +26,6 @@ import {
   IconCoin,
   IconChevronDown,
 } from "@tabler/icons-react";
-import { MantineLogo } from "@mantinex/mantine-logo";
 import { useDisclosure } from "@mantine/hooks";
 
 import { useAuth } from '../../contexts/AuthContext';
@@ -93,10 +92,10 @@ export function HeaderMegaMenu() {
   ));
 
   return (
-    <Box pb={120}>
+    <Box className="shadow-md shadow-slate-500/20 mb-12 pt-2 pb-4 border-b-1">
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
-          <MantineLogo size={30} />
+          <p className="font-bold text-2xl">TeeBay</p>
 
           <Group h="100%" gap={0} visibleFrom="sm">
             <a href="/" className={classes.link}>

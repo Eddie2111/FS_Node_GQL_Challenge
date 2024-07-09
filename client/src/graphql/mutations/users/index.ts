@@ -25,4 +25,11 @@ const GET_USER = gql`
   }
 `;
 
-export { signIn, signUp, GET_USER };
+const getOneUser = gql`
+  query getOneUser($id: Int!) {
+      getUserById(id: $id)
+      { id name email }
+  }
+`;
+
+export { signIn, signUp, GET_USER, getOneUser };
