@@ -10,7 +10,6 @@ export const queryTypeDefs = gql`
     logout(id: String!): String
 
     # product queries
-    deleteProduct(id: String!): String
     readOneProduct(id: String!): FullProduct
     readAllProducts(page: Int!): [Product]
     getIntactProducts(page: Int!): [FullProduct]
@@ -25,5 +24,6 @@ export const queryTypeDefs = gql`
     # analytics
     getUserCount: Int
     getUsersByPage(page: Int!): [User]
+    GetRentedProductsByUser(id: String!): [Rent]
   }
 `;

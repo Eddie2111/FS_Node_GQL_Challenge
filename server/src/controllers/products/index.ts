@@ -271,6 +271,12 @@ const GetOneRent = async (_: any, { id }: { id: string }) => {
     where: { product_id: id },
   });
 };
+const GetRentedProductsByUser = async (_: any, { id }: { id: string }) => {
+  const userid = parseInt(id ?? "0", 10);
+  return await prisma.rented.findMany({
+    where: { rentedby: userid },
+  });
+}
 export {
   CreateProduct,
   DeleteProduct,
@@ -283,4 +289,5 @@ export {
   getRentedProducts,
   GetOneRent,
   RentProduct,
+  GetRentedProductsByUser,
 };

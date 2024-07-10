@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RentProduct = exports.GetOneRent = exports.getRentedProducts = exports.getIntactProducts = exports.getBoughtProducts = exports.ChangeStatus = exports.UpdateProduct = exports.ReadOneProduct = exports.ReadAllProducts = exports.DeleteProduct = exports.CreateProduct = void 0;
+exports.GetRentedProductsByUser = exports.RentProduct = exports.GetOneRent = exports.getRentedProducts = exports.getIntactProducts = exports.getBoughtProducts = exports.ChangeStatus = exports.UpdateProduct = exports.ReadOneProduct = exports.ReadAllProducts = exports.DeleteProduct = exports.CreateProduct = void 0;
 const tslib_1 = require("tslib");
 const uuid_1 = require("uuid");
 const db_1 = tslib_1.__importDefault(require("../../lib/db"));
@@ -174,4 +174,11 @@ const GetOneRent = (_11, _l) => tslib_1.__awaiter(void 0, [_11, _l], void 0, fun
     });
 });
 exports.GetOneRent = GetOneRent;
+const GetRentedProductsByUser = (_12, _m) => tslib_1.__awaiter(void 0, [_12, _m], void 0, function* (_, { id }) {
+    const userid = parseInt(id !== null && id !== void 0 ? id : "0", 10);
+    return yield db_1.default.rented.findMany({
+        where: { rentedby: userid },
+    });
+});
+exports.GetRentedProductsByUser = GetRentedProductsByUser;
 //# sourceMappingURL=index.js.map

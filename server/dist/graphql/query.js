@@ -12,7 +12,6 @@ exports.queryTypeDefs = (0, apollo_server_express_1.gql) `
     logout(id: String!): String
 
     # product queries
-    deleteProduct(id: String!): String
     readOneProduct(id: String!): FullProduct
     readAllProducts(page: Int!): [Product]
     getIntactProducts(page: Int!): [FullProduct]
@@ -27,6 +26,7 @@ exports.queryTypeDefs = (0, apollo_server_express_1.gql) `
     # analytics
     getUserCount: Int
     getUsersByPage(page: Int!): [User]
+    GetRentedProductsByUser(id: String!): [Rent]
   }
 `;
 //# sourceMappingURL=query.js.map

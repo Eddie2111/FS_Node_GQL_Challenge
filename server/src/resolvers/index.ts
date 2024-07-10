@@ -10,6 +10,7 @@ import {
   getRentedProducts,
   GetOneRent,
   RentProduct,
+  GetRentedProductsByUser,
 } from '../controllers/products';
 import {
   logOut,
@@ -35,7 +36,6 @@ export const resolvers = {
     getUserById: getUserByID,
     logout: logOut,
     // product controls
-    deleteProduct: DeleteProduct,
     readOneProduct: ReadOneProduct,
     readAllProducts: ReadAllProducts,
     getBoughtProducts: getBoughtProducts,
@@ -45,11 +45,13 @@ export const resolvers = {
     // user analytics
     getUserCount: getUserCount,
     getUsersByPage: getUsersByPage,
+    GetRentedProductsByUser: GetRentedProductsByUser,
     // product analytics
     getProductCount: getProductCount,
     getBoughtProductsCount: getBoughtProductsCount,
     getIntactProductsCount: getIntactProductsCount,
     getRentedProductsCount: getRentedProductsCount,
+
   },
   Mutation: {
     // user controls
@@ -59,6 +61,7 @@ export const resolvers = {
     // product controls
     createProduct: CreateProduct,
     updateProduct: UpdateProduct,
+    deleteProduct: DeleteProduct,
     changeStatus: ChangeStatus,
     rentProduct: RentProduct,
   },

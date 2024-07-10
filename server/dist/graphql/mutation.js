@@ -23,7 +23,7 @@ const productBasedMutations = `
       category: Categories
       status: ProductStatus
     ): Product
-    removeProduct(serial: Int!): String
+    deleteProduct(id: String!): String
     changeStatus(
       id: String!
       status: String!

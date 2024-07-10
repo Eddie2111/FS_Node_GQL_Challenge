@@ -53,7 +53,7 @@ model Bought {
 
 model Rented {
   id         String      @id
-  product_id String      @unique
+  product_id String      
   createdby  Int
   rentedby   Int
   from       DateTime
