@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useQuery } from "@apollo/client";
 
-import { GET_USER } from "../graphql/mutations/users/index";
+import { GET_USER } from "../graphql/queries/users/index";
 
 interface UserData {
   id?: number;

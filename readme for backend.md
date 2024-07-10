@@ -46,6 +46,13 @@ Once pnpm is installed, run the following command to install the project depende
 pnpm install
 ```
 
+Next, run this command to migrate and generate the client for the database:
+
+```bash
+pnpm run install
+```
+
+
 ## Running in Development Mode
 
 To run the project in development mode, use the following command:
@@ -69,6 +76,10 @@ This will start the server using node and run the compiled JavaScript files from
 ## Environment Variables
 
 The project uses dotenv to manage environment variables. Ensure you have a .env file in the root of your project with the necessary environment variables.
+
+Last used example env,
+
+`DATABASE_URL="postgresql://root:admin@localhost:5400/mydb?schema=public"`
 
 ## Project Structure
 

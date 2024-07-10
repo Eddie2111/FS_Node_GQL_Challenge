@@ -11,6 +11,7 @@ import { signIn, signUp } from "../graphql/mutations/users/index"
 import { loginSchema, registerSchema } from "../utils/validation/user";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export function AuthenticationForm(props: PaperProps) {
   const { login, userLogin } = useAuth();
@@ -55,6 +56,8 @@ export function AuthenticationForm(props: PaperProps) {
           userLogin(response?.data?.signIn ?? {id: "", email: "", name: ""});
           login();
           navigate("/home");
+        } else {
+          toast.warning("No user exists by that email, try signing in?");
         }
       } else {
         const response = await SignUp({

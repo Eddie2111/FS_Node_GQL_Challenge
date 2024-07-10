@@ -8,13 +8,15 @@ import {
 import React from "react";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { ProductProps } from "../types/product.d";
+
 import { useQuery } from "@apollo/client";
-import ProductCard from "../components/ProductCard";
-import { getProductsByPage } from "../graphql/mutations/products/index";
+
+import { getProductsByPage } from "../graphql/queries/products/index";
 import ShowBoughtProducts from '../components/home/ShowBoughtProducts';
 import ShowIntactProducts from '../components/home/ShowIntactProducts';
 import ShowRentedProducts from '../components/home/ShowRentedProducts';
+import ProductCard from "../components/ProductCard";
+import { ProductProps } from "../types/product.d";
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -56,12 +58,17 @@ const Home = () => {
           </div>
         </div>
       )}
-      <Group position="center" mt="xl">
-        <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
-          Previous Page
-        </Button>
-        <Button onClick={() => setPage(page + 1)}>Next Page</Button>
-      </Group>
+      {
+      sorted !== ('all' || "") ? 
+        <></>
+       : 
+        <Group position="center" mt="xl">
+          <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
+            Previous Page
+          </Button>
+          <Button onClick={() => setPage(page + 1)}>Next Page</Button>
+        </Group>
+       }
     </Container>
   );
 };

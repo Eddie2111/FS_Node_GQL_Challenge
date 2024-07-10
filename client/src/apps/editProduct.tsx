@@ -3,10 +3,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { Card, Text, Button, Group, TextInput, Select } from "@mantine/core";
 
-import {
-  getOneProductByID,
-  updateProductByID,
-} from "../graphql/mutations/products/index";
+import { updateProductByID } from "../graphql/mutations/products/index";
+import { getOneProductByID } from "../graphql/queries/products/index";
 import { toast } from "sonner";
 
 enum Categories {

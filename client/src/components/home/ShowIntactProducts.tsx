@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Pagination } from "@mantine/core";
 import { useQuery } from "@apollo/client";
-import { getIntactProducts } from "../../graphql/mutations/products/index";
+import { getIntactProducts } from "../../graphql/queries/products/index";
 import { ProductProps } from "../../types/product.d";
 import ProductCard from "../ProductCard";
 

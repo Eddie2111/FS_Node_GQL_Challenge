@@ -7,8 +7,18 @@ import {
 } from "@mantine/core";
 import { ProductProps } from "../types/product.d";
 import { useNavigate } from "react-router-dom";
+import { getOneRent } from "../graphql/queries/products/index";
+import { useQuery } from '@apollo/client';
+import DeleteModal from './DeleteModal';
+
 const ProductCard = ({product}: {product: ProductProps}) => {
     const navigate = useNavigate();
+    const {data:rented ,loading: loading_rented, error:error_rented} = useQuery(getOneRent,{
+      variables: {
+         id: product.id
+      }
+    });
+    console.log(rented,loading_rented,error_rented);
 return (
   <Card key={product.id} shadow="sm" padding="lg" className="mx-auto w-[24rem]">
     <Group position="apart" style={{ marginBottom: 5, marginTop: "1rem" }}>
@@ -41,6 +51,7 @@ return (
       >
         Edit
       </Button>
+      <DeleteModal product_id={product.id} />
     </Group>
   </Card>
 );
