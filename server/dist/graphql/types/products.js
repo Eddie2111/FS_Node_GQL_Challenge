@@ -33,5 +33,13 @@ exports.productTypeDefs = (0, apollo_server_express_1.gql) `
     updated_at: String
     user: UserType
   }
+  type Rent {
+    id: String
+    product_id: String
+    createdby: Int
+    rentedby: Int
+    from: String
+    to: String
+  }
 `;
 //# sourceMappingURL=products.js.map

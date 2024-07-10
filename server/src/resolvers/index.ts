@@ -8,6 +8,8 @@ import {
   getBoughtProducts,
   getIntactProducts,
   getRentedProducts,
+  GetOneRent,
+  RentProduct,
 } from '../controllers/products';
 import {
   logOut,
@@ -39,6 +41,7 @@ export const resolvers = {
     getBoughtProducts: getBoughtProducts,
     getIntactProducts: getIntactProducts,
     getRentedProducts: getRentedProducts,
+    getOneRent: GetOneRent,
     // user analytics
     getUserCount: getUserCount,
     getUsersByPage: getUsersByPage,
@@ -57,5 +60,6 @@ export const resolvers = {
     createProduct: CreateProduct,
     updateProduct: UpdateProduct,
     changeStatus: ChangeStatus,
+    rentProduct: RentProduct,
   },
 };

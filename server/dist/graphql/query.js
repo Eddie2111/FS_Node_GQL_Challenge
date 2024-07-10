@@ -18,6 +18,7 @@ exports.queryTypeDefs = (0, apollo_server_express_1.gql) `
     getIntactProducts(page: Int!): [FullProduct]
     getBoughtProducts(page: Int!): [FullProduct]
     getRentedProducts(page: Int!): [FullProduct]
+    getOneRent(id: String!): Rent
     # product analytics
     getIntactProductsCount: Int
     getBoughtProductsCount: Int

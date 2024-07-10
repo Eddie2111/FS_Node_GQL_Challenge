@@ -18,6 +18,7 @@ exports.resolvers = {
         getBoughtProducts: products_1.getBoughtProducts,
         getIntactProducts: products_1.getIntactProducts,
         getRentedProducts: products_1.getRentedProducts,
+        getOneRent: products_1.GetOneRent,
         getUserCount: users_2.getUserCount,
         getUsersByPage: users_2.getUsersByPage,
         getProductCount: products_2.getProductCount,
@@ -32,6 +33,7 @@ exports.resolvers = {
         createProduct: products_1.CreateProduct,
         updateProduct: products_1.UpdateProduct,
         changeStatus: products_1.ChangeStatus,
+        rentProduct: products_1.RentProduct,
     },
 };
 //# sourceMappingURL=index.js.map

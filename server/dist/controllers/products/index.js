@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRentedProducts = exports.getIntactProducts = exports.getBoughtProducts = exports.ChangeStatus = exports.UpdateProduct = exports.ReadOneProduct = exports.ReadAllProducts = exports.DeleteProduct = exports.CreateProduct = void 0;
+exports.RentProduct = exports.GetOneRent = exports.getRentedProducts = exports.getIntactProducts = exports.getBoughtProducts = exports.ChangeStatus = exports.UpdateProduct = exports.ReadOneProduct = exports.ReadAllProducts = exports.DeleteProduct = exports.CreateProduct = void 0;
 const tslib_1 = require("tslib");
 const uuid_1 = require("uuid");
 const db_1 = tslib_1.__importDefault(require("../../lib/db"));
@@ -59,6 +59,7 @@ const CreateProduct = (_4, _d) => tslib_1.__awaiter(void 0, [_4, _d], void 0, fu
                 price,
                 category,
                 user_id,
+                status: 'INTACT'
             },
         });
         return newProduct;
@@ -154,4 +155,23 @@ const getRentedProducts = (_9, _j) => tslib_1.__awaiter(void 0, [_9, _j], void 0
     });
 });
 exports.getRentedProducts = getRentedProducts;
+const RentProduct = (_10, _k) => tslib_1.__awaiter(void 0, [_10, _k], void 0, function* (_, { product_id, createdby, rentedby, from, to, }) {
+    return yield db_1.default.rented.create({
+        data: {
+            id: (0, uuid_1.v4)(),
+            product_id,
+            createdby,
+            rentedby,
+            from: new Date(from.toString()),
+            to: new Date(to.toString()),
+        },
+    });
+});
+exports.RentProduct = RentProduct;
+const GetOneRent = (_11, _l) => tslib_1.__awaiter(void 0, [_11, _l], void 0, function* (_, { id }) {
+    return yield db_1.default.rented.findUnique({
+        where: { product_id: id },
+    });
+});
+exports.GetOneRent = GetOneRent;
 //# sourceMappingURL=index.js.map

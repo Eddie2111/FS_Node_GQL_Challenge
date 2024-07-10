@@ -33,7 +33,7 @@ model User {
 model Products {
   serial      Int           @id @default(autoincrement())
   id          String        @unique @db.Uuid
-  name        String        @db.VarChar(16)
+  name        String        @db.VarChar(64)
   price       Int           @db.Integer()
   description String        @db.VarChar(512)
   status      ProductStatus @default(INTACT)
@@ -52,8 +52,8 @@ model Bought {
 }
 
 model Rented {
-  id         Int      @id
-  product_id Int      @unique
+  id         String      @id
+  product_id String      @unique
   createdby  Int
   rentedby   Int
   from       DateTime

@@ -62,7 +62,7 @@ const ReadAllProducts = async (
   });
   return products;
 };
-
+//
 const CreateProduct = async (
   _: any,
   {
@@ -83,6 +83,7 @@ const CreateProduct = async (
         price,
         category,
         user_id,
+        status: 'INTACT'
       },
     });
     return newProduct;
@@ -238,7 +239,39 @@ const getRentedProducts = async (
     },
   });
 };
-export { 
+const RentProduct = async (
+  _: any,
+  {
+    product_id,
+    createdby,
+    rentedby,
+    from,
+    to,
+  }: {
+    product_id: string;
+    createdby: number;
+    rentedby: number;
+    from: string;
+    to: string;
+  }
+) => {
+  return await prisma.rented.create({
+    data: {
+      id: uuidv4(),
+      product_id,
+      createdby,
+      rentedby,
+      from: new Date(from.toString()),
+      to: new Date(to.toString()),
+    },
+  });
+};
+const GetOneRent = async (_: any, { id }: { id: string }) => {
+  return await prisma.rented.findUnique({
+    where: { product_id: id },
+  });
+};
+export {
   CreateProduct,
   DeleteProduct,
   ReadAllProducts,
@@ -248,4 +281,6 @@ export {
   getBoughtProducts,
   getIntactProducts,
   getRentedProducts,
+  GetOneRent,
+  RentProduct,
 };

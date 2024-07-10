@@ -26,6 +26,13 @@ const productBasedMutations = `
       id: String!
       status: String!
       ): Product
+    rentProduct(
+    product_id: String
+    createdby: Int
+    rentedby: Int
+    from: String
+    to: String
+    ): Rent
 `;
 export const mutationTypeDefs = gql`
   type Mutation {

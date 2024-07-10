@@ -16,6 +16,7 @@ export const queryTypeDefs = gql`
     getIntactProducts(page: Int!): [FullProduct]
     getBoughtProducts(page: Int!): [FullProduct]
     getRentedProducts(page: Int!): [FullProduct]
+    getOneRent(id: String!): Rent
     # product analytics
     getIntactProductsCount: Int
     getBoughtProductsCount: Int

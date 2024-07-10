@@ -31,4 +31,12 @@ export const productTypeDefs = gql`
     updated_at: String
     user: UserType
   }
+  type Rent {
+    id: String
+    product_id: String
+    createdby: Int
+    rentedby: Int
+    from: String
+    to: String
+  }
 `;
